@@ -1,0 +1,24 @@
+# Development environment
+version: '3'
+services:
+  db:
+    image: 'postgres:9'
+    restart: always
+    environment:
+      - POSTGRES_DB=dystematic
+      - POSTGRES_USER=dystematic-user
+      - POSTGRES_PASSWORD=dystematic-pass
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  
+  api:
+    build: .
+    working_dir: /workspace/src
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/workspace
+
+volumes:
+ db_data:

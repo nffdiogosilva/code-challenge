@@ -1,0 +1,14 @@
+# Meta
+*.pyc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# Databases
+*.sqlite
+
+
+**/.pytest_cache/*
+**/.coverage
+.env
