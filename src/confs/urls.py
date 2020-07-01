@@ -4,10 +4,12 @@ from django.conf.urls.static import static
 from django.urls import include, path
 from rest_framework import routers
 
+from stock.views import CompanyViewSet, DailyPriceViewSet, RecommendationViewSet
+
 router = routers.DefaultRouter()
-# Replace these registration with your viewsets
-#router.register(r'users', views.UserViewSet)
-#router.register(r'groups', views.GroupViewSet)
+router.register(r'companies', CompanyViewSet)
+router.register(r'dailyprices', DailyPriceViewSet)
+router.register(r'recommendations', RecommendationViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
