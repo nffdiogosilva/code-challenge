@@ -1,4 +1,5 @@
 import os
+import sys
 
 import environ
 
@@ -162,7 +163,8 @@ LOGGING = {
         'console':{
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'simple',
+            'stream': sys.stdout
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -180,6 +182,11 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': False,
+        },
+        'fetch_data': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'DEBUG',
         },
     }
 }

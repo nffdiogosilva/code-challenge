@@ -3,11 +3,12 @@ from django.db import models
 
 class Company(models.Model):
     SECTOR_TYPES_CHOICES = (
-        ('it','IT'),
-        ('finance','Finance'),
+        ('it', 'IT'),
+        ('finance', 'Finance'),
+        # TOOD: add other sectors
     )
     short_name = models.CharField('short Name', max_length=50)
-    ticker = models.CharField('Ticker', max_length=20)
+    ticker = models.CharField('Ticker', max_length=20, unique=True)
     sector = models.CharField(max_length=20, choices=SECTOR_TYPES_CHOICES)
     address = models.CharField('address', max_length=50)
 
@@ -38,6 +39,7 @@ class DailyPrice(models.Model):
 
 
 class Recommendation(models.Model):
+    # created_at = models.DatetimeField()
     to_grade = models.CharField('to grade', max_length=20)
     scalar = models.FloatField('scalar')
     daily_price = models.ForeignKey('DailyPrice', related_name='recommendations', on_delete=models.CASCADE)
@@ -47,4 +49,4 @@ class Recommendation(models.Model):
         verbose_name_plural = 'recommendations'
 
     def __str__(self):
-        return f'{self.pk} - Recommendation: {self.to_grade}, Scalar Value: {self.scalar_value}'
+        return f'{self.pk} - Recommendation: {self.to_grade}, Scalar Value: {self.scalar}'
