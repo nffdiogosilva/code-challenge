@@ -3,7 +3,8 @@ from django.db import models
 
 class Company(models.Model):
     SECTOR_TYPES_CHOICES = (
-        ('',''),
+        ('it','IT'),
+        ('finance','Finance'),
     )
     short_name = models.CharField('short Name', max_length=50)
     ticker = models.CharField('Ticker', max_length=20)
@@ -19,7 +20,7 @@ class Company(models.Model):
 
 
 class DailyPrice(models.Model):
-    created_at = models.DateField('created_at')
+    created_at = models.DateField('created_at', unique=True)
     open_value = models.FloatField('open')
     high_value = models.FloatField('high')
     low_value = models.FloatField('low')
@@ -33,7 +34,7 @@ class DailyPrice(models.Model):
         verbose_name_plural = 'daily prices'
 
     def __str__(self):
-        return f'{self.pk} - Daily Price: {self.short_name}, Ticker: {self.ticker}'
+        return f'{self.pk} - Daily Price: {self.created_at}'
 
 
 class Recommendation(models.Model):
