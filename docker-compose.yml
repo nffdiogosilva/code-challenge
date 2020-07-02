@@ -2,8 +2,9 @@
 version: '3'
 services:
   db:
-    image: 'postgres:9'
+    image: 'postgres:11-alpine'
     restart: always
+    # TODO: this data should be on automatic generated file
     environment:
       - POSTGRES_DB=dystematic
       - POSTGRES_USER=dystematic-user
