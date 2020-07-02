@@ -2,6 +2,13 @@
 
 > ReST API to serve companies daily prices and theirs recommendations from stock data (using yfinance to fetch it)
 
+## Table of Contents (most relevant files)
+* [src/stock/models.py]() - models and their relationships;
+* [src/stock/views.py]() - how endpoints are made and processed;
+* [src/stock/utils.py]() - how scalar value mapping is done;
+* [src/stock/fetch_data.py]() - how fetching stock data is done, via yfinance;
+* [src/stock/management/commands/fetch_daily_data.py]() - command that uses fetch_data.py logic
+
 ## Build environment
 
 ### Dependencies
@@ -89,6 +96,12 @@ $ http://localhost:8000/recommendations/?start_date=2020-05-01&end_date=2020-07-
 $ http://localhost:8000/recommendations/?start_date=2020-05-01&end_date=2020-07-30&company=FB
 ```
 
+## Relevant things missing but not in code challenge scope
+* TDD;
+* ReST endpoints authentication
+
+It was not done because it wasn't requested and it would take more time to finish the code challenge. For production environment though it would be necessary, at least the authentication.
+
 ## Extra: Django Pandas (Tools for working with pandas in your Django projects)
 ```bash
 # If you want to process the DailyPrice objects in a DataFrame/DataTime object
@@ -102,6 +115,12 @@ from stock.models import DailyPrice as d
 
 dp_qs = d.objects.all()
 dp_qs.to_timeseries(index='created_at')
+
+# expected output
+#            id  open_value  high_value  low_value  close_value    volume company
+# created_at
+# 2020-07-01  17      365.12      367.36     363.91       364.11  26800491    AAPL
+# 2020-04-30  18      206.92      209.69     201.57       204.71  46173300      FB
 
 # Can find more in here: https://django-pandas.readthedocs.io/en/latest/
 ```
