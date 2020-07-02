@@ -1,4 +1,5 @@
 import os
+import sys
 
 import environ
 
@@ -39,7 +40,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd parties
     'rest_framework',
+    # Custom apps
+    'stock.apps.StockConfig',
 )
 
 MIDDLEWARE = (
@@ -104,7 +108,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -159,7 +163,8 @@ LOGGING = {
         'console':{
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'simple',
+            'stream': sys.stdout
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -177,6 +182,11 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': False,
+        },
+        'fetch_data': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'DEBUG',
         },
     }
 }
