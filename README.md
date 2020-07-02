@@ -86,14 +86,20 @@ $ http://localhost:8000/companies
 # Query dailyprices using start_date and end_date
 $ http://localhost:8000/dailyprices/?start_date=2020-05-01&end_date=2020-07-30
 
-# Query dailyprices using start_date and end_date AND company
-$ http://localhost:8000/dailyprices/?start_date=2020-05-01&end_date=2020-07-30&company=FB
+# Query dailyprices using start_date and end_date AND companies
+$ http://localhost:8000/dailyprices/?start_date=2020-05-01&end_date=2020-07-30&companies=FB
+
+# Query dailyprices using start_date and end_date AND MULTIPLE companies
+$ http://localhost:8000/dailyprices/?start_date=2020-05-01&end_date=2020-07-30&companies=FB&companies=AAPL
 
 # Query recommendations using start_date and end_date
 $ http://localhost:8000/recommendations/?start_date=2020-05-01&end_date=2020-07-30
 
-# Query recommendations using start_date and end_date AND company
-$ http://localhost:8000/recommendations/?start_date=2020-05-01&end_date=2020-07-30&company=FB
+# Query recommendations using start_date and end_date AND companies
+$ http://localhost:8000/recommendations/?start_date=2020-05-01&end_date=2020-07-30&companies=FB
+
+# Query recommendations using start_date and end_date AND MULTIPLE companies
+$ http://localhost:8000/recommendations/?start_date=2020-05-01&end_date=2020-07-30&companies=FB&companies=AAPL
 ```
 
 ## Relevant things missing but not in code challenge scope

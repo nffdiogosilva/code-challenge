@@ -15,7 +15,8 @@ class CompanyViewSet(viewsets.ModelViewSet):
 
 class DailyPriceViewSet(viewsets.ViewSet):
     """
-    Daily Price List Endpoint that returns...
+    Daily Price List Endpoint.
+    You can query results through: start_date, end_date and companies parameters.
     """
     queryset = DailyPrice.objects.all()
 
@@ -39,8 +40,8 @@ class DailyPriceViewSet(viewsets.ViewSet):
 
 class RecommendationViewSet(viewsets.ViewSet):
     """
-    Example empty viewset demonstrating the standard
-    actions that will be handled by a router class.
+    Recommendation List Endpoint.
+    You can query results through: start_date, end_date and companies parameters.
     """
     queryset = Recommendation.objects.all()
 
