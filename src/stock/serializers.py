@@ -36,7 +36,7 @@ class RecommendationSerializer(serializers.ModelSerializer):
 class QuerySerializer(serializers.Serializer):
     start_date = serializers.DateField()
     end_date = serializers.DateField()
-    company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all(), required=False)
+    companies = serializers.MultipleChoiceField(choices=Company.objects.all().values_list('pk', 'ticker'), required=False)
 
     def validate(self, data):
         if data['end_date'] < data['start_date']:
