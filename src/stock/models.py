@@ -2,6 +2,8 @@ import datetime
 
 from django.db import models
 
+from django_pandas.managers import DataFrameManager
+
 
 class Company(models.Model):
     SECTOR_TYPES_CHOICES = (
@@ -30,6 +32,8 @@ class DailyPrice(models.Model):
     close_value = models.FloatField('close')
     volume = models.IntegerField('volume') # FIXME: should this be a BigIntegerField?
     company = models.ForeignKey('Company', related_name='daily_prices', on_delete=models.CASCADE)
+
+    objects = DataFrameManager()
 
     class Meta:
         verbose_name = 'daily price'

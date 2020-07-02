@@ -95,6 +95,17 @@ version = "0.4.5"
 
 [[package]]
 category = "main"
+description = "Tools for working with pydata.pandas in your Django projects"
+name = "django-pandas"
+optional = false
+python-versions = "*"
+version = "0.6.2"
+
+[package.dependencies]
+pandas = ">=0.14.1"
+
+[[package]]
+category = "main"
 description = "Web APIs for Django, made easy."
 name = "djangorestframework"
 optional = false
@@ -450,7 +461,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "3b0c7f7a9a88f4c6cad7efd03916de128adcdb275d97ed32206bbd9b57062dba"
+content-hash = "048ba96d7b0caec8b3d388026921d90bd632931d68113501803d9dcf5445d431"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -518,6 +529,10 @@ django-debug-toolbar = [
 django-environ = [
     {file = "django-environ-0.4.5.tar.gz", hash = "sha256:6c9d87660142608f63ec7d5ce5564c49b603ea8ff25da595fd6098f6dc82afde"},
     {file = "django_environ-0.4.5-py2.py3-none-any.whl", hash = "sha256:c57b3c11ec1f319d9474e3e5a79134f40174b17c7cc024bbb2fad84646b120c4"},
+]
+django-pandas = [
+    {file = "django-pandas-0.6.2.tar.gz", hash = "sha256:79d96a6701c1ab230867f4e3b9fbff3e3f50771edd741d12be4f3147fd2ecd4b"},
+    {file = "django_pandas-0.6.2-py2.py3-none-any.whl", hash = "sha256:ffaea2a050cb82ba23c0a962b8a797adfc9a6ae23bb99a6e2c62ef36a8ef33b2"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.11.0-py3-none-any.whl", hash = "sha256:05809fc66e1c997fd9a32ea5730d9f4ba28b109b9da71fccfa5ff241201fd0a4"},

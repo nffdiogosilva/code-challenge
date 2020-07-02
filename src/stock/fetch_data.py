@@ -25,14 +25,13 @@ class CompanyStockDataFetcher:
 
         logger.debug('Initialized ticker object: %s', self.ticker)
 
-    # TODO: should support multiple records, based on the interval
+    # TODO: ideally it should support multiple records, based on the given interval
     def _save_daily_price(self):
         # Since I can assume it's only a record per day, It felt more efficient
         # to access the values directly instead of converting dataframe into a dict and then iterate a dict of dicts.
         # The most efficient solution would be using the .to_sql method, but for Django ORM compability reasons I did it this way.
         daily_ticker = self.ticker.history(start=self.start_date.isoformat(), end=self.end_date.isoformat())
 
-        # TODO: needs to re-validate this logic of "get_or_create" object. Think in all use cases
         dp = DailyPrice.objects.get_or_create(
             created_at=daily_ticker.index[0].to_pydatetime().date(),
             open_value=daily_ticker['Open'].values[0],
