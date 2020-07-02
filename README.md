@@ -89,4 +89,21 @@ $ http://localhost:8000/recommendations/?start_date=2020-05-01&end_date=2020-07-
 $ http://localhost:8000/recommendations/?start_date=2020-05-01&end_date=2020-07-30&company=FB
 ```
 
+## Extra: Django Pandas (Tools for working with pandas in your Django projects)
+```bash
+# If you want to process the DailyPrice objects in a DataFrame/DataTime object
+$ dc exec api bash
+$ poetry shell
+$ ./manage.py shell
+```
+
+```python
+from stock.models import DailyPrice as d
+
+dp_qs = d.objects.all()
+dp_qs.to_timeseries(index='created_at')
+
+# Can find more in here: https://django-pandas.readthedocs.io/en/latest/
+```
+
 <p style="text-align: center;">For detailed explanation on how things work, check out [Django Docs](https://docs.djangoproject.com/en/2.2/), [Docker Docs](https://docs.docker.com/).</p>
