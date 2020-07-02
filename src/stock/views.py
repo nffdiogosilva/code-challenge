@@ -23,12 +23,14 @@ class DailyPriceViewSet(viewsets.ViewSet):
         serializer = QuerySerializer(data=request.query_params)
         
         if serializer.is_valid():
+            qs = self.queryset
+
             if 'company' in serializer.validated_data:
                 qs = qs.filter(company=serializer.validated_data['company'])
 
             start_date = serializer.validated_data['start_date']
             end_date = serializer.validated_data['end_date']
-            qs = DailyPrice.objects.filter(created_at__gte=start_date, created_at__lte=end_date)
+            qs = qs.filter(created_at__gte=start_date, created_at__lte=end_date)
 
             return Response(DailyPriceSerializer(qs, many=True).data)
 
@@ -46,14 +48,15 @@ class RecommendationViewSet(viewsets.ViewSet):
         serializer = QuerySerializer(data=request.query_params)
         
         if serializer.is_valid():
+            qs = self.queryset
             if 'company' in serializer.validated_data:
                 qs = qs.filter(daily_price__company=serializer.validated_data['company'])
 
             start_date = serializer.validated_data['start_date']
             end_date = serializer.validated_data['end_date']
-            qs = Recommendation.objects.filter(created_at__gte=start_date, created_at__lte=end_date)
-            avg = qs.aggregate(Avg('scalar'))
+            qs = qs.filter(created_at__gte=start_date, created_at__lte=end_date)
+            avg = qs.aggregate(Avg('scalar'))['scalar__avg']
             
-            return Response([avg] + RecommendationSerializer(qs, many=True).data)
+            return Response([{'scalar_avg': avg}] + RecommendationSerializer(qs, many=True).data)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
