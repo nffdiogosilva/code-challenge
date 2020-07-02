@@ -3,11 +3,11 @@
 > ReST API to serve companies daily prices and theirs recommendations from stock data (using yfinance to fetch it)
 
 ## Table of Contents (most relevant files)
-* [src/stock/models.py]() - models and their relationships;
-* [src/stock/views.py]() - how endpoints are made and processed;
-* [src/stock/utils.py]() - how scalar value mapping is done;
-* [src/stock/fetch_data.py]() - how fetching stock data is done, via yfinance;
-* [src/stock/management/commands/fetch_daily_data.py]() - command that uses fetch_data.py logic
+* [src/stock/models.py](https://github.com/nffdiogosilva/dystematic-code-challenge/blob/master/src/stock/models.py) - models and their relationships;
+* [src/stock/views.py](https://github.com/nffdiogosilva/dystematic-code-challenge/blob/master/src/stock/views.py) - how endpoints are made and processed;
+* [src/stock/utils.py](https://github.com/nffdiogosilva/dystematic-code-challenge/blob/master/src/stock/utils.py) - how scalar value mapping is done;
+* [src/stock/fetch_data.py](https://github.com/nffdiogosilva/dystematic-code-challenge/blob/master/src/stock/fetch_data.py) - how fetching stock data is done, via yfinance;
+* [src/stock/management/commands/fetch_daily_data.py](https://github.com/nffdiogosilva/dystematic-code-challenge/blob/master/src/stock/management/commands/fetch_daily_data.py) - command that uses fetch_data.py logic
 
 ## Build environment
 
