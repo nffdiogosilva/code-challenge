@@ -15,16 +15,28 @@ class DailyPriceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class DailyPriceCompanyField(serializers.RelatedField):
+    def to_representation(self, value):
+        return f'DP ({value.pk}) Company: {value.company.ticker}'
+
 class RecommendationSerializer(serializers.ModelSerializer):
+    daily_price = DailyPriceCompanyField(read_only=True)
+    
     class Meta:
         model = Recommendation
-        fields = '__all__'
+        fields = (
+            'id',
+            'created_at',
+            'to_grade',
+            'scalar',
+            'daily_price',
+        )
 
 
 class QuerySerializer(serializers.Serializer):
     start_date = serializers.DateField()
     end_date = serializers.DateField()
-    company = serializers.ModelField(model_field=Company()._meta.get_field('ticker'), required=False)
+    company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all(), required=False)
 
     def validate(self, data):
         if data['end_date'] < data['start_date']:

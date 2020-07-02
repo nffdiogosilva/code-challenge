@@ -61,7 +61,7 @@ class Command(BaseCommand):
         if end_date < start_date:
             raise argparse.ArgumentTypeError('End date must be equal or bigger than start date')
 
-        self.stdout.write(f'About to start daily fetch beetween interval date: [{start_date},{end_date}]')
+        self.stdout.write(f'About to start daily fetch beetween start and end date: [{start_date},{end_date}]')
         
         if not tickers:
             self.stdout.write('Fetching for all persited companies')
@@ -71,7 +71,7 @@ class Command(BaseCommand):
             for ticker in tickers.split(','):
                 companies.append(Company.objects.get_or_create(ticker=ticker)[0])
             
-            self.stdout.write(f'Fetching for all given companies tickers: {tickers}')
+            self.stdout.write(f'Fetching for specific companies tickers: {tickers}')
             fetch_and_persist_companies_stock_data(companies, start_date=start_date, end_date=end_date)
 
-        self.stdout.write('Finished daily fetching process')
+        self.stdout.write('Finished fetching process')

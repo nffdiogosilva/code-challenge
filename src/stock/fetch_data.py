@@ -23,10 +23,9 @@ class CompanyStockDataFetcher:
         self.start_date = kwargs.setdefault('start_date', dt.date.today())
         self.end_date = kwargs.setdefault('end_date', self.start_date + dt.timedelta(days=1))
 
-        logger.debug('Initialized ticker object :%s', self.ticker)
-        logger.debug('Start date: %s; End date: %s tacked in account', self.start_date, self.end_date)
+        logger.debug('Initialized ticker object: %s', self.ticker)
 
-    # TODO: needs to support multiple records, based on the interval
+    # TODO: should support multiple records, based on the interval
     def _save_daily_price(self):
         # Since I can assume it's only a record per day, It felt more efficient
         # to access the values directly instead of converting dataframe into a dict and then iterate a dict of dicts.
@@ -44,27 +43,33 @@ class CompanyStockDataFetcher:
             company=self.company,
         )[0]
         
-        logger.info('Saved daily price for %s Company Ticker', dp.company.ticker)
+        logger.info('Daily price (%s) saved for: %s Company', dp.created_at, dp.company.ticker)
         return dp
 
     def _save_recommendations(self, dp):
         try:
             recommendations = self.ticker.recommendations[dp.created_at.isoformat()]
         except KeyError as e:
-            logger.exception('No recommendations found for given date')
+            logger.warning('A KeyError was raised. No recommendations found for given date: %s', dp.created_at.isoformat())
         else:
             if len(recommendations) > 0:
                 
                 recommendations_list = []
                 for to_grade_values in recommendations[['To Grade']].to_dict().values():
-                    for v in to_grade_values.values():
-                        recommendations_list.append(Recommendation(to_grade=clean_to_grade(v), scalar=get_scalar_value(v), daily_price=dp))
+                    for k, v in to_grade_values.items():
+                        recommendations_list.append(Recommendation(
+                            created_at=k.to_pydatetime(),
+                            to_grade=clean_to_grade(v),
+                            scalar=get_scalar_value(v),
+                            daily_price=dp
+                            )
+                        )
 
                 Recommendation.objects.bulk_create(recommendations_list)
                 
-                logger.info('Saved %s recommendations for daily price %s', len(recommendations), dp)
+                logger.info('Saved %s recommendations for %s', len(recommendations), dp)
             else:
-                logger.info('No recommendations were saved for daily price %s', dp)
+                logger.info('No recommendations found for %s associated with %s Company', dp, dp.company.ticker)
 
     def save_all_data(self):
         dp = self._save_daily_price()
@@ -74,8 +79,8 @@ class CompanyStockDataFetcher:
 def fetch_and_persist_companies_stock_data(companies=None, **kwargs):
     companies = companies or Company.objects.all()
 
-    #if companies.count() == 0:
-    #    logger.info('No company found in database')
+    if not isinstance(companies,list) and not companies.exists():
+        logger.info('No company found in database')
     
     for company in companies:
         data_fetcher = CompanyStockDataFetcher(company, start_date=kwargs.get('start_date'), end_date=kwargs.get('end_date'))
