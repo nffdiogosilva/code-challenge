@@ -26,7 +26,7 @@ class DailyPriceViewSet(viewsets.ViewSet):
         if serializer.is_valid():
             qs = self.queryset
 
-            if 'companies' in serializer.validated_data:
+            if 'companies' in serializer.validated_data and len(serializer.validated_data['companies']) > 0:
                 qs = qs.filter(company__in=serializer.validated_data['companies'])
 
             start_date = serializer.validated_data['start_date']
@@ -50,7 +50,8 @@ class RecommendationViewSet(viewsets.ViewSet):
         
         if serializer.is_valid():
             qs = self.queryset
-            if 'companies' in serializer.validated_data:
+
+            if 'companies' in serializer.validated_data and len(serializer.validated_data['companies']) > 0:
                 qs = qs.filter(daily_price__company__in=serializer.validated_data['companies'])
 
             start_date = serializer.validated_data['start_date']

@@ -11,10 +11,10 @@ class Company(models.Model):
         ('finance', 'Finance'),
         # TOOD: add other sectors
     )
-    ticker = models.CharField('Ticker', max_length=10, primary_key=True)
-    short_name = models.CharField('short Name', max_length=50)
-    sector = models.CharField(max_length=20, choices=SECTOR_TYPES_CHOICES)
-    address = models.CharField('address', max_length=50)
+    ticker = models.CharField('ticker', primary_key=True, max_length=20)
+    short_name = models.CharField('short Name', max_length=255)
+    sector = models.CharField('sector', max_length=20, choices=SECTOR_TYPES_CHOICES)
+    address = models.CharField('address', max_length=255)
 
     class Meta:
         verbose_name = 'company'
@@ -26,11 +26,11 @@ class Company(models.Model):
 
 class DailyPrice(models.Model):
     created_at = models.DateField('created_at')
-    open_value = models.FloatField('open')
-    high_value = models.FloatField('high')
-    low_value = models.FloatField('low')
-    close_value = models.FloatField('close')
-    volume = models.IntegerField('volume') # FIXME: should this be a BigIntegerField?
+    open_value = models.FloatField('open', default=0.0)
+    high_value = models.FloatField('high', default=0.0)
+    low_value = models.FloatField('low', default=0.0)
+    close_value = models.FloatField('close', default=0.0)
+    volume = models.IntegerField('volume', default=0) # FIXME: should this be a BigIntegerField?
     company = models.ForeignKey('Company', related_name='daily_prices', on_delete=models.CASCADE)
 
     objects = DataFrameManager()
@@ -45,7 +45,7 @@ class DailyPrice(models.Model):
 
 
 class Recommendation(models.Model):
-    created_at = models.DateTimeField(default=datetime.datetime.now)
+    created_at = models.DateTimeField('created_at')
     to_grade = models.CharField('to grade', max_length=20)
     scalar = models.FloatField('scalar')
     daily_price = models.ForeignKey('DailyPrice', related_name='recommendations', on_delete=models.CASCADE)

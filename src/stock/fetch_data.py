@@ -34,14 +34,17 @@ class CompanyStockDataFetcher:
 
         dp = DailyPrice.objects.get_or_create(
             created_at=daily_ticker.index[0].to_pydatetime().date(),
-            open_value=daily_ticker['Open'].values[0],
-            high_value=daily_ticker['High'].values[0],
-            low_value=daily_ticker['Low'].values[0],
-            close_value=daily_ticker['Close'].values[0],
-            volume=daily_ticker['Volume'].values[0],
             company=self.company,
         )[0]
+
+        dp.open_value=daily_ticker['Open'].values[0]
+        dp.high_value=daily_ticker['High'].values[0]
+        dp.low_value=daily_ticker['Low'].values[0]
+        dp.close_value=daily_ticker['Close'].values[0]
+        dp.volume=daily_ticker['Volume'].values[0]
         
+        dp.save()
+
         logger.info('Daily price (%s) saved for: %s Company', dp.created_at, dp.company.ticker)
         return dp
 
