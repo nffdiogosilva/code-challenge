@@ -1,6 +1,13 @@
-FROM nffdiogosilva/pytools:3.7
+FROM python:3.7-slim-stretch
 
-LABEL mantainer="Nuno Diogo da Silva"
+LABEL maintainer="Nuno Diogo da Silva <diogosilva.nuno@gmail.com>"
+
+ENV PATH=/root/.local/bin:$PATH
+
+RUN pip install pipx && \
+    pipx install pylint && \
+    pipx install black && \
+    pipx install poetry
 
 # Install git, process tools
 RUN apt-get update && apt-get -y install git procps
@@ -15,6 +22,7 @@ RUN mkdir /workspace
 WORKDIR /workspace
 
 COPY *.toml /workspace/
+COPY poetry.lock /workspace/
 
 # Install project dependencies
 RUN poetry install
