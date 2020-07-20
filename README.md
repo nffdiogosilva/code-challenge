@@ -134,4 +134,4 @@ dp_qs.to_timeseries(index='created_at')
 # Can find more in here: https://django-pandas.readthedocs.io/en/latest/
 ```
 
-<p style="text-align: center;">For detailed explanation on how things work, check out [Django Docs](https://docs.djangoproject.com/en/2.2/), [Docker Docs](https://docs.docker.com/).</p>
+For detailed explanation on how things work, check out [Django Docs](https://docs.djangoproject.com/en/2.2/), [Docker Docs](https://docs.docker.com/).
