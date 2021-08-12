@@ -1,4 +1,4 @@
-# dystematic-code-challenge
+# code-challenge
 
 > ReST API to serve companies daily prices and recommendations stock data, using yfinance to fetch the data.
 
