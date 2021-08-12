@@ -21,7 +21,7 @@
 $ alias dc="docker-compose"
 
 # change directory inside project
-$ cd dystematic-code-challenge
+$ cd code-challenge
 
 # start docker compose services in background
 $ dc up -d
@@ -35,8 +35,8 @@ $ dc ps
 
              Name                            Command               State           Ports
 -------------------------------------------------------------------------------------------------
-dystematic-code-challenge_api_1   /bin/sh -c while sleep 100 ...   Up      0.0.0.0:8000->8000/tcp
-dystematic-code-challenge_db_1    docker-entrypoint.sh postgres    Up      5432/tcp
+code-challenge_api_1   /bin/sh -c while sleep 100 ...   Up      0.0.0.0:8000->8000/tcp
+code-challenge_db_1    docker-entrypoint.sh postgres    Up      5432/tcp
 
 # (first bootstrap only) run database migrations
 $ dc exec api bash
